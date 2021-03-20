@@ -23,13 +23,29 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
-
-   // /api/notes should read the db.json file and return all saved notes as JSON
+    //  SHOULD READ THE DB.JSON FILE AND RETURN SAVED NOTES AS JSON
    app.get('/api/notes', function (req, res) {
     fs.readFile('./db/db.json', 'utf8', function (err, data) {
         res.json(JSON.parse(data));
     })
 });
+
+
+//WRITING NOTES TO THE REQUEST BODY
+  app.post("/api/notes", function(req, res) {
+    const newNote = req.body;
+
+    // adds unique id to new notes
+    newNote.id = uuidv4();
+    dbJSON.push(newNote);
+    fs.writeFile(path.join(__dirname, './db/db.json'), JSON.stringify(dbJSON, null, 2), (err) => {
+            if (err) {
+                return res.json({error: "Error writing to file"});
+            }
+        
+            return res.json(newNote);
+        });
+    });
 
 
 // Listener
