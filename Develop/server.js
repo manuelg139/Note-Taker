@@ -40,13 +40,38 @@ app.get('/notes', (req, res) => {
     dbJSON.push(newNote);
     fs.writeFile(path.join(__dirname, './db/db.json'), JSON.stringify(dbJSON, null, 2), (err) => {
             if (err) {
-                return res.json({error: "Error writing to file"});
+                return res.json({error: "Error. Cannot write into the file"});
             }
         
             return res.json(newNote);
         });
     });
 
+   
+    app.delete("/api/notes/:id", function(req, res) {
+        fs.readFile("db/db.json", "utf8", function(error, data) {
+          let noteId = req.params.id;
+          let noteData = JSON.parse(data);
+
+          //READING THE JSON DATA TO LOOK TO FILTER ID PROPERTIES 
+          noteData = noteData.filter(function(note) {
+              if (noteId != note.id) {
+                return true;
+              } else {
+                return false;
+              };
+          }); 
+
+
+          //WRITING THE REMAINING NOTES NOT DELETED
+          fs.writeFile("db/db.json", JSON.stringify(noteData), function(error){
+            if (error)
+            throw error;
+            res.end(console.log("NOTE DELETED!!! "));
+          })
+        });
+
+      });
 
 // Listener
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
