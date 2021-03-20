@@ -27,8 +27,7 @@ Your note will appear on the left side of the applciation.
 Click on the delete icon if you wish to delete your note.
 
 ## Media
-
-- Video Link (https://drive.google.com/file/d/1Ob5YJlu_9XdpFr0DKs3npWsZQJxp0_1N/view?usp=sharing)
+<img width="1667" alt="Screen Shot 2021-03-20 at 3 59 31 PM" src="https://user-images.githubusercontent.com/75399668/111885394-7b7f3a00-8995-11eb-8684-f55cce4d5f56.png">
 
 ## License
 
